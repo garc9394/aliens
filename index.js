@@ -1,9 +1,13 @@
-// Get references to the tbody element, input field and button
 var $tbody = document.querySelector("tbody");
 var $datetimeInput = document.querySelector("#datetime");
 var $searchBtn = document.querySelector("#search_datetime");
 
-// Add an event listener to the searchButton, call handleSearchButtonClick when clicked
+$datetimeInput.addEventListener('keypress', function (event) {
+  var key = event.which || event.keyCode;
+  if (key === 13) {
+    handleSearchButtonClick();
+  }
+});
 $searchBtn.addEventListener("click", handleSearchButtonClick);
 
 // Set filteredAddresses to addressData initially
