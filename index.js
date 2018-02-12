@@ -74,8 +74,6 @@ for (var i = 0; i < shapeList.length; i++) {
 var filteredData = dataSet;
 
 function renderTable() {
-  // $tbody.innerHTML = "";
-
   totalRecords = 0,
   records = [],
   displayRecords = [],
