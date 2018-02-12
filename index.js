@@ -12,7 +12,7 @@ $resetFldBtn.addEventListener("click", resetInputFieldsButtonClick);
 
 $(document).ready(function() {
   $('table').DataTable({
-    "dom": '<"top"l>rt<"bottom"><"clear">', "pageLength": 50
+    "dom": '<"top">rt<"bottom"><"clear">', "pageLength": 50
   });
 });
 
@@ -86,26 +86,15 @@ function renderTable() {
   totalPages = Math.ceil(totalRecords / recPerPage);
 
   apply_pagination();
-
-  // displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
-  // endRec = (displayRecordsIndex) + recPerPage;
-  // displayRecords = records.slice(displayRecordsIndex, endRec);
-
-  // for (var i = 0; i < displayRecords.length; i++) {
-  //   var data = displayRecords[i];
-  //   var fields = Object.keys(data);
-  //   var $row = $tbody.insertRow(i);
-  //   for (var j = 0; j < fields.length; j++) {
-  //     var field = fields[j];
-  //     var $cell = $row.insertCell(j);
-  //     $cell.innerText = data[field];
-  //   }
-  // }
 }
 
 var $pagination = $('#pagination');
 
 function apply_pagination() {
+  if($pagination.data("twbs-pagination")){
+    $pagination.twbsPagination('destroy');
+  }
+
   $pagination.twbsPagination({
     totalPages: totalPages,
     visiblePages: 6,
@@ -113,6 +102,10 @@ function apply_pagination() {
       displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
       endRec = (displayRecordsIndex) + recPerPage;
       
+      if (endRec >= totalRecords) {
+        endRec = totalRecords - 1;
+      }
+
       displayRecords = records.slice(displayRecordsIndex, endRec);
 
       generate_table();
@@ -122,15 +115,6 @@ function apply_pagination() {
 
 function generate_table() {
   for (var i = 0; i < displayRecords.length; i++) {
-    // tr = $('<tr/>');
-    // tr.append("<td>" + displayRecords[i].datetime + "</td>");
-    // tr.append("<td>" + displayRecords[i].city + "</td>");
-    // tr.append("<td>" + displayRecords[i].state + "</td>");
-    // tr.append("<td>" + displayRecords[i].country + "</td>");
-    // tr.append("<td>" + displayRecords[i].shape + "</td>");
-    // tr.append("<td>" + displayRecords[i].durationMinutes + "</td>");
-    // tr.append("<td>" + displayRecords[i].comments + "</td>");
-    // $('tbody').append(tr);
     var data = displayRecords[i];
     var fields = Object.keys(data);
     var $row = $tbody.insertRow(i);
@@ -192,7 +176,8 @@ function handleSearchButtonClick() {
     var filterShapeVal = dataShape != filterShape
   }
 
-  return ((filterDatetimeVal) && (filterCityVal) && (filterStateVal) && (filterCountryVal) && (filterShapeVal));
+  filteredData = ((filterDatetimeVal) && (filterCityVal) && (filterStateVal) && (filterCountryVal) && (filterShapeVal));
+  return filteredData;
   });
   renderTable();
 }
