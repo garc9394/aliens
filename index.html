@@ -7,24 +7,62 @@
   <title>Alien Sightings</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" href="styles.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="jquery.twbsPagination.min.js"></script>
 </head>
 
 <body>
   <div class="container">
+    <h1>Searching for Alien Sightings</h1>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4 col-sm-4">
         <div class="form-group">
-          <input type="text" class="form-control" id="datetime" placeholder="Datetime">
-          <input type="text" class="form-control" id="city" placeholder="City">
-          <select id="state"class="form-control" id="state" placeholder="State">
-            <option value="ca">ca</option>
-            <option value="az">az</option>
-          </select>
+          <form id="search-form">
+            <input type="text" class="form-control" id="datetime" placeholder="Date">
+            <input type="text" class="form-control" id="city" placeholder="City">
+            <select class="form-control" id="state" placeholder="State">
+              <option value="" selected="selected">Select State</option>
+            </select>
+            <select class="form-control" id="country" placeholder="Country">
+              <option value="" selected="selected">Select Country</option>
+            </select>
+            <select class="form-control" id="shape" placeholder="Shape">
+              <option value="" selected="selected">Select Shape</option>
+            </select>
+          </form>
           <a id="search" class="btn btn-default">Search</a>
+          <a id="resetFld" class="btn btn-default">Reset Fields</a>
         </div>
       </div>
     </div>
+    <hr>
     <div class="row">
+      <nav aria-label="Search results pages">
+        <ul id="pagination">
+          <!-- <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li> -->
+        </ul>
+      </nav>
       <div class="col-md-12">
         <table class="table table-striped">
           <thead>
@@ -40,6 +78,17 @@
           </thead>
           <tbody>
           </tbody>
+          <tfoot>
+            <tr>
+              <th>Date/Time</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Country</th>
+              <th>Shape</th>
+              <th>Duration (Minutes)</th>
+              <th>Comment</th>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>
