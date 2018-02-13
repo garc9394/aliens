@@ -88,11 +88,13 @@ function renderTable() {
   apply_pagination();
 }
 
-var $pagination = $('#pagination');
+var $pagination = $('.pagination');
+var $pagination_tbody = $('tbody');
 
 function apply_pagination() {
   if($pagination.data("twbs-pagination")){
     $pagination.twbsPagination('destroy');
+    $pagination_tbody.twbsPagination('destroy');
   }
 
   $pagination.twbsPagination({
@@ -103,7 +105,7 @@ function apply_pagination() {
       endRec = (displayRecordsIndex) + recPerPage;
       
       if (endRec >= totalRecords) {
-        endRec = totalRecords - 1;
+        endRec = totalRecords;
       }
 
       displayRecords = records.slice(displayRecordsIndex, endRec);
@@ -176,9 +178,9 @@ function handleSearchButtonClick() {
     var filterShapeVal = dataShape != filterShape
   }
 
-  filteredData = ((filterDatetimeVal) && (filterCityVal) && (filterStateVal) && (filterCountryVal) && (filterShapeVal));
-  return filteredData;
+  return ((filterDatetimeVal) && (filterCityVal) && (filterStateVal) && (filterCountryVal) && (filterShapeVal));
   });
+
   renderTable();
 }
 
